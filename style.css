@@ -373,8 +373,17 @@ form .form label span {
 
 form .form-group {
   position: relative;
-  margin-bottom: 36px;
+  margin-bottom: 40px;
   width: 100%;
+}
+
+.form-group span.error {
+  position: absolute;
+  left: 0;
+  bottom: -16px;
+  font-size: 13px;
+  font-weight: 300;
+  color: #d0021b;
 }
 
 form .form-group::after {
@@ -414,6 +423,11 @@ form .form-group__checkbox label {
   padding-left: 22px;
 }
 
+form .form-group__checkbox label.error,
+form .form-group__checkbox label.error span {
+  color: #d0021b;
+}
+
 form .form-group__checkbox input {
   position: absolute;
   top: 2px;
@@ -425,6 +439,7 @@ form .form-group__checkbox input {
   padding: 0;
   width: 9px;
 }
+
 form .form-group__checkbox input:checked + .tickbox {
   background: #84bd00;
   border-color: #84bd00;
@@ -449,6 +464,10 @@ form .form-group__checkbox .tickbox {
   transition:background 0.4s ease;
   width: 16px;
   border-radius: 2px;
+}
+
+form .form-group__checkbox .tickbox.error {
+  border-color: #d0021b;
 }
 
 form .form-group__checkbox:hover .tickbox {

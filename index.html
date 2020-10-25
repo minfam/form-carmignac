@@ -23,7 +23,7 @@
       <h1>I want to know more</h1>
     </header>
     <main>
-      <div>
+      <div class="wrapper" data-require-text="This field is required" data-email-invalid="Please enter a valid email address">
         <!-- START CHOOSE TYPE RECEIVE MORE OR ADVICE -->
         <div class="type step active" data-step="type">
           <div class="note">How can Carmignac help you?</div>
@@ -86,7 +86,6 @@
 
         <!-- START ADVICE FORM WITH PROJECT -->
         <form
-          action=""
           method="post"
           class="advice-with-project-form"
         >
@@ -488,6 +487,7 @@
                     type="checkbox"
                     id="advice-with-project-policy"
                     name="policy"
+                    class="form-input__checkbox form-input__required"
                   />
                   <div class="tickbox">
                     <svg
@@ -654,6 +654,7 @@
                     type="checkbox"
                     id="advice-without-project-policy"
                     name="policy"
+                    class="form-input__checkbox form-input__required"
                   />
                   <div class="tickbox">
                     <svg
@@ -961,6 +962,7 @@
                     type="checkbox"
                     id="receive-more-policy"
                     name="policy"
+                    class="form-input__checkbox form-input__required"
                   />
                   <div class="tickbox">
                     <svg
@@ -1178,7 +1180,7 @@
 
     <!-- Thank you page END -->
 
-    <script src="./carmignacJs2.js"></script>
+    <!-- <script src="./carmignacJs2.js"></script> -->
     <script src="./main.js"></script>
     <script src="./iframe_resize.min.js"></script>
   </body>
