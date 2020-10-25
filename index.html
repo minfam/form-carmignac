@@ -23,15 +23,19 @@
       <h1>I want to know more</h1>
     </header>
     <main>
-      <div class="wrapper" data-require-text="This field is required" data-email-invalid="Please enter a valid email address">
+      <div 
+        class="wrapper" 
+        data-require-text="This field is required"
+        data-email-invalid="Please enter a valid email address">
+
         <!-- START CHOOSE TYPE RECEIVE MORE OR ADVICE -->
-        <div class="type step active" data-step="type">
+        <div class="type step active">
           <div class="note">How can Carmignac help you?</div>
           <div class="content">
             <div class="row">
               <div class="column column-6">
                 <div class="form-group__radio">
-                  <input type="radio" value="advice-confirm" id="advice" name="type" checked />
+                  <input type="radio" name="type" value="advice-confirm" id="advice" class="select-type" checked />
                   <label for="advice">
                     I need advice on my savings and would like to be contacted
                     by a Carmignac private banker
@@ -40,7 +44,7 @@
               </div>
               <div class="column column-6">
                 <div class="form-group__radio">
-                  <input type="radio" value="receive-more-interests" id="receive-more" name="type" />
+                  <input type="radio" name="type" value="receive-more-form-interests" id="receive-more" class="select-type" />
                   <label for="receive-more">
                     I would like to receive more information on Carmignac
                     analysis and fund
@@ -51,13 +55,13 @@
           </div>
           <div class="btn">
             <button type="button" class="back">BACK</button>
-            <button type="button" class="next">NEXT</button>
+            <button type="button" class="next" data-next="advice-confirm">NEXT</button>
           </div>
         </div>
         <!-- END CHOOSE TYPE RECEIVE MORE OR ADVICE -->
 
         <!-- START CHOOSE HAS A PROJECT OR HAS NO PROJECT -->
-        <div class="advice-confirm step" data-step="advice-confirm">
+        <div class="advice-confirm step">
           <div class="note">
             Would you like to tell us more about your project?
           </div>
@@ -65,13 +69,13 @@
             <div class="row">
               <div class="column column-6">
                 <div class="form-group__radio">
-                  <input type="radio" value="advice-project" id="yes" name="advice-confirm" checked />
+                  <input type="radio" name="advice-confirm" value="advice-project" id="yes" checked />
                   <label for="yes"> Yes </label>
                 </div>
               </div>
               <div class="column column-6">
                 <div class="form-group__radio">
-                  <input type="radio" value="advice-without-project-form-user" id="no" name="advice-confirm" />
+                  <input type="radio" name="advice-confirm" value="advice-without-project-form-user" id="no"  />
                   <label for="no"> No </label>
                 </div>
               </div>
@@ -79,7 +83,7 @@
           </div>
           <div class="btn">
             <button type="button" class="back" data-back="type">BACK</button>
-            <button type="button" class="next">NEXT</button>
+            <button type="button" class="next" data-next="advice-project">NEXT</button>
           </div>
         </div>
         <!-- END CHOOSE HAS A PROJECT OR HAS NO PROJECT -->
@@ -90,7 +94,7 @@
           class="advice-with-project-form"
         >
           <!-- START PROJECT FORM -->
-          <div id="project" class="advice-project step" data-step="advice-project">
+          <div id="project" class="advice-project step">
             <div class="title">
               About your project
               <em>Select 1 or more</em>
@@ -103,7 +107,7 @@
                       type="checkbox"
                       id="retirement"
                       name="retirement"
-                      class="form-input__checkbox"
+                      class="form-input__checkbox element"
                     />
                     <div class="tickbox">
                       <svg
@@ -127,7 +131,8 @@
                       type="checkbox"
                       id="savings"
                       name="savings"
-                      class="form-input__checkbox"
+                      checked
+                      class="form-input__checkbox element"
                     />
                     <div class="tickbox">
                       <svg
@@ -153,7 +158,7 @@
                       type="checkbox"
                       id="other"
                       name="other"
-                      class="form-input__checkbox"
+                      class="form-input__checkbox element"
                     />
                     <div class="tickbox">
                       <svg
@@ -174,6 +179,7 @@
                     rows="5"
                     id="other_text"
                     name="other_text"
+                    class="element"
                   ></textarea>
                 </div>
               </div>
@@ -187,7 +193,7 @@
                       type="checkbox"
                       id="less_than_5_years"
                       name="less_than_5_years"
-                      class="form-input__checkbox"
+                      class="form-input__checkbox element"
                     />
                     <div class="tickbox">
                       <svg
@@ -211,7 +217,8 @@
                       type="checkbox"
                       id="5_to_10_years"
                       name="5_to_10_years"
-                      class="form-input__checkbox"
+                      checked
+                      class="form-input__checkbox element"
                     />
                     <div class="tickbox">
                       <svg
@@ -235,7 +242,7 @@
                       type="checkbox"
                       id="more_than_10_years"
                       name="more_than_10_years"
-                      class="form-input__checkbox"
+                      class="form-input__checkbox element"
                     />
                     <div class="tickbox">
                       <svg
@@ -264,7 +271,8 @@
                       type="checkbox"
                       id="less_than_50000"
                       name="less_than_50000"
-                      class="form-input__checkbox"
+                      checked
+                      class="form-input__checkbox element"
                     />
                     <div class="tickbox">
                       <svg
@@ -288,7 +296,7 @@
                       type="checkbox"
                       id="50000_to_50000"
                       name="50000_to_50000"
-                      class="form-input__checkbox"
+                      class="form-input__checkbox element"
                     />
                     <div class="tickbox">
                       <svg
@@ -312,7 +320,7 @@
                       type="checkbox"
                       id="more_than_500000"
                       name="more_than_500000"
-                      class="form-input__checkbox"
+                      class="form-input__checkbox element"
                     />
                     <div class="tickbox">
                       <svg
@@ -340,7 +348,7 @@
                       type="checkbox"
                       id="dont_share"
                       name="dont_share"
-                      class="form-input__checkbox"
+                      class="form-input__checkbox element"
                     />
                     <div class="tickbox">
                       <svg
@@ -370,7 +378,7 @@
           <!-- END PROJECT FORM -->
 
           <!-- START INFORMATION FORM -->
-          <div class="advice-with-project-form-user step" data-step="advice-with-project-user">
+          <div class="advice-with-project-form-user step">
             <div class="note">
               <p>We will send you a document to share with your advisor</p>
               <p>We won't use your details for any commercial communication</p>
@@ -536,7 +544,7 @@
           method="post"
           class="advice-without-project-form"
         >
-          <div class="advice-without-project-form-user step" data-step="advice-without-project-user">
+          <div class="advice-without-project-form-user step">
             <div class="note">
               <p>We will send you a document to share with your advisor</p>
               <p>We won't use your details for any commercial communication</p>
@@ -703,7 +711,7 @@
           class="receive-more-form"
         >
           <!-- START INTERESTS FROM -->
-          <div id="interests" class="receive-more-interests step" data-step="receive-more-interests">
+          <div id="interests" class="receive-more-form-interests step">
             <div class="title">
               What are your interests?
               <em>Select 1 or more</em>
@@ -716,7 +724,7 @@
                       type="checkbox"
                       id="market_analysis"
                       name="market_analysis"
-                      class="form-input__checkbox"
+                      class="form-input__checkbox element"
                     />
                     <div class="tickbox">
                       <svg
@@ -740,7 +748,8 @@
                       type="checkbox"
                       id="ethical_investing"
                       name="ethical_investing"
-                      class="form-input__checkbox"
+                      checked
+                      class="form-input__checkbox element"
                     />
                     <div class="tickbox">
                       <svg
@@ -764,7 +773,7 @@
                       type="checkbox"
                       id="fund_performances"
                       name="fund_performances"
-                      class="form-input__checkbox"
+                      class="form-input__checkbox element"
                     />
                     <div class="tickbox">
                       <svg
@@ -790,7 +799,7 @@
                       type="checkbox"
                       id="educational_content"
                       name="educational_content"
-                      class="form-input__checkbox"
+                      class="form-input__checkbox element"
                     />
                     <div class="tickbox">
                       <svg
@@ -816,7 +825,7 @@
                       type="checkbox"
                       id="carmignac_offer"
                       name="carmignac_offer"
-                      class="form-input__checkbox"
+                      class="form-input__checkbox element"
                     />
                     <div class="tickbox">
                       <svg
@@ -838,13 +847,13 @@
             </div>
             <div class="btn">
               <button type="button" class="back" data-back="type">BACK</button>
-              <button type="button" class="next" data-next="receive-more-user">NEXT</button>
+              <button type="button" class="next" data-next="receive-more-form-user">NEXT</button>
             </div>
           </div>
           <!-- END INTERESTS FROM -->
 
           <!-- START INFORMATION FROM -->
-          <div class="receive-more-user step" data-step="receive-more-user">
+          <div class="receive-more-form-user step">
             <div class="note">
               <p>We will send you a document to share with your advisor</p>
               <p>We won't use your details for any commercial communication</p>
@@ -997,190 +1006,15 @@
               </div>
             </div>
             <div class="btn">
-              <button type="button" class="back" data-back="receive-more-interests">BACK</button>
+              <button type="button" class="back" data-back="receive-more-form-interests">BACK</button>
               <button type="submit" class="btn-submit">SEND</button>
             </div>
           </div>
           <!-- END INFORMATION FROM -->
         </form>
         <!-- END RECEIVE MORE FORM -->
-
-        <!-- <div class="btn">
-          <button>BACK</button>
-          <button>NEXT</button>
-        </div> -->
       </div>
-
-      <!-- <div>
-        <div class="note can-animate">
-          <p>We will send you a document to share with your advisor</p>
-          <p>We won't use your details for any commercial communication</p>
-        </div>
-        <form
-          id="form"
-          action="https://go.carmignac.com/l/170872/2019-10-04/2bhst6"
-          method="post"
-        >
-          <fieldset>
-            <div class="form">
-              <div class="row">
-                <div class="column column-6">
-                  <div class="form-group">
-                    <div class="form-group form-input__select">
-                      <label for="title">Title<span>*</span></label>
-                      <select
-                        id="title"
-                        name="title"
-                        class="form-input form-input__required"
-                      >
-                        <option></option>
-                        <option value="Mr">Mr</option>
-                        <option value="Mrs">Mrs</option>
-                      </select>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="10"
-                        height="7"
-                        viewBox="0 0 8 7"
-                      >
-                        <polygon points="0,0 8,0 4,7" style="fill:#525151;stroke:#525151;stroke-width:1" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="column column-6">
-                  <div class="form-group">
-                    <label for="firstname">First name<span>*</span></label>
-                    <input
-                      type="text"
-                      id="firstname"
-                      name="firstname"
-                      class="form-input form-input__required"
-                    />
-                  </div>
-                </div>
-                <div class="column column-6">
-                  <div class="form-group">
-                    <label for="lastname">Last name<span>*</span></label>
-                    <input
-                      type="text"
-                      id="lastname"
-                      name="lastname"
-                      class="form-input form-input__required"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="column column-6">
-                  <div class="form-group">
-                    <label for="email">Email address<span>*</span></label>
-                    <input
-                      type="text"
-                      id="email"
-                      name="email"
-                      class="form-input form-input__email form-input__required"
-                    />
-                  </div>
-                </div>
-                <div class="column column-6">
-                  <div class="form-group">
-                    <label for="phone">Phone number</label>
-                    <input
-                      type="text"
-                      id="phone"
-                      name="phone"
-                      class="form-input form-input__numeric form-input"
-                    />
-                  </div>
-                </div>
-              </div>
-  
-              <div class="form-group__checkbox form-group__full-width">
-                <input
-                  type="checkbox"
-                  value="Y"
-                  id="commercial_contact"
-                  name="commercial_contact"
-                  class="form-input__checkbox"
-                />
-                <div class="tickbox">
-                  <svg
-                    class="checkmark"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 52 52"
-                  >
-                    <path
-                      class="checkmark-check"
-                      fill="none"
-                      d="M14.1 27.2l7.1 7.2 16.7-16.8"
-                    ></path>
-                  </svg>
-                </div>
-                <label for="commercial_contact">
-                  I accept that my personal data may be used by Carmignac for
-                  commercial purposes.
-                </label>
-              </div>
-              <div class="form-group__checkbox form-group__full-width">
-                <input
-                  type="checkbox"
-                  value="Y"
-                  id="compliance"
-                  name="compliance"
-                />
-                <div class="tickbox">
-                  <svg
-                    class="checkmark"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 52 52"
-                  >
-                    <path
-                      class="checkmark-check"
-                      fill="none"
-                      d="M14.1 27.2l7.1 7.2 16.7-16.8"
-                    ></path>
-                  </svg>
-                </div>
-                <label for="compliance">
-                  I acknowledge and accept Carmignac
-                  <a
-                    href="https://www.carmignac.co.uk/en_GB/article-page/privacy-policy-1980"
-                    >Privacy Policy</a
-                  >
-                  and I accept the process of my personal data by Carmignac.<span
-                    >*</span
-                  >
-                </label>
-              </div>
-              <input
-                type="hidden"
-                value=""
-                id="source"
-                name="source"
-                class="form-input form-input__required"
-              />
-            </div>
-          </fieldset>
-          <div
-            class="btn can-animate"
-            //onclick="window.parentIFrame.sendMessage({action:'send-form', label:'RECEIVE AN INVITATION'});"
-          >
-              <button>BACK</button>
-              <button type="submit">SEND</button>
-          </div>
-        </form>
-      </div> -->
     </main>
-    <!-- Form content END -->
-
-    <!-- START Thank you page -->
-
-    <!-- Thank you page END -->
-
-    <!-- <script src="./carmignacJs2.js"></script> -->
     <script src="./main.js"></script>
     <script src="./iframe_resize.min.js"></script>
   </body>

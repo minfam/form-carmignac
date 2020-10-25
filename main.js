@@ -1,10 +1,13 @@
 const TYPE = "type";
 const ADVICE_CONFIRM = "advice-confirm";
 const PROJECT = "advice-project";
-const ADVICE_WITH_PROJECT_USER = "advice-with-project-user";
-const ADVICE_WITHOUT_PROJECT_USER = "advice-without-project-user";
-const RECEIVE_MORE_INTERESTS = "receive-more-interests";
+const ADVICE_WITH_PROJECT_USER = "advice-with-project-form-user";
+const ADVICE_WITHOUT_PROJECT_USER = "advice-without-project-form-user";
+const RECEIVE_MORE_INTERESTS = "receive-more-form-interests";
 const RECEIVE_MORE_USER = "receive-more-user";
+
+const ADVICE_WITH_PROJECT_FORM = "advice-with-project-form";
+const RECEIVE_MORE_FORM = "receive-more-form";
 
 window.addEventListener("DOMContentLoaded", () => {
   let classNameFormActive = null;
@@ -14,8 +17,10 @@ window.addEventListener("DOMContentLoaded", () => {
   const requiredText = wrapper.dataset.requireText;
   const emailInvalid = wrapper.dataset.emailInvalid;
 
-  let stepActive;
   const formLabels = document.querySelectorAll(".form-input");
+  let type = document.querySelector(".select-type:checked").value;
+  let hasProject = document.querySelector(".advice-confirm input:checked")
+    .value;
 
   function init() {
     const version = detectIE();
@@ -28,44 +33,75 @@ window.addEventListener("DOMContentLoaded", () => {
       handleSubmit(form);
     });
 
-    handleCurrentStep();
+    handleNavigation();
     handleChange();
     handleChangeInputNumber();
     handleFocus();
   }
 
-  function handleCurrentStep() {
-    stepActive = document.querySelector(".step.active");
-    const stepActiveName = stepActive.dataset.step;
-    const nextBtn = document.querySelector(".step.active .next");
-    const backBtn = document.querySelector(".step.active .back");
-
-    if (nextBtn) {
-      nextBtn.addEventListener("click", function () {
-        let nextClass;
-        if (stepActiveName === TYPE || stepActiveName === ADVICE_CONFIRM) {
-          const radioActive = document.querySelector(
-            `.step.active input[name="${stepActiveName}"]:checked`
-          );
-          if (!radioActive) return;
-          nextClass = radioActive.value;
-        } else {
-          nextClass = this.dataset.next;
+  function handleNavigation() {
+    //select advice or receive more
+    document.querySelectorAll(".select-type").forEach(function (element) {
+      element.addEventListener("input", function (event) {
+        if (event.target.checked) {
+          type = event.target.value;
+          document.querySelector(".type .next").dataset.next = type;
         }
-        gotoStep(stepActive, nextClass);
       });
-    }
+    });
 
-    if (backBtn) {
-      const prevStepClass = backBtn.dataset.back;
-      if (!prevStepClass) return;
+    //select has project or has no project
+    document
+      .querySelectorAll(".advice-confirm input")
+      .forEach(function (element) {
+        element.addEventListener("input", function (event) {
+          if (event.target.checked) {
+            hasProject = event.target.value;
+            document.querySelector(
+              ".advice-confirm  .next"
+            ).dataset.next = hasProject;
+          }
+        });
+      });
 
-      backBtn.addEventListener("click", function () {
-        //reset final form
+    //handle click next
+    document.querySelectorAll(".next").forEach(function (element) {
+      element.addEventListener("click", function (event) {
+        const nextClass = event.target.dataset.next;
+        document.querySelector(".active").classList.remove("active");
+        document.querySelector(`.${nextClass}`).classList.add("active");
+
+        // can clone this if submit form don't take data from prev form
+        // if (nextClass === ADVICE_WITH_PROJECT_USER) {
+        //   cloneElement(
+        //     document.querySelectorAll(`.${PROJECT} .element`),
+        //     ADVICE_WITH_PROJECT_FORM
+        //   );
+        // }
+        // if (nextClass === RECEIVE_MORE_USER) {
+        //   cloneElement(
+        //     document.querySelectorAll(`.${RECEIVE_MORE_INTERESTS} .element`),
+        //     RECEIVE_MORE_FORM
+        //   );
+        // }
+      });
+    });
+
+    //handle click back
+    document.querySelectorAll(".back").forEach(function (element) {
+      element.addEventListener("click", function (event) {
+        const backClass = event.target.dataset.back;
+        if (!backClass) {
+          return;
+        }
+        document.querySelector(".active").classList.remove("active");
+        document.querySelector(`.${backClass}`).classList.add("active");
+
+        //clear error final form
         if (
-          prevStepClass === PROJECT ||
-          prevStepClass === ADVICE_CONFIRM ||
-          prevStepClass === RECEIVE_MORE_INTERESTS
+          backClass === PROJECT ||
+          backClass === ADVICE_CONFIRM ||
+          backClass === RECEIVE_MORE_INTERESTS
         ) {
           document.querySelectorAll(".error").forEach(function (element) {
             if (element.tagName === "SPAN") {
@@ -74,18 +110,14 @@ window.addEventListener("DOMContentLoaded", () => {
               element.classList.remove("error");
             }
           });
+        //   document.querySelectorAll(".invisible").forEach(function (element) {
+        //     element.remove();
+        //   });
           classNameFormActive = null;
           errors = {};
         }
-        gotoStep(stepActive, prevStepClass);
       });
-    }
-  }
-
-  function gotoStep(currentStep, className) {
-    currentStep.classList.remove("active");
-    document.getElementsByClassName(className)[0].classList.add("active");
-    handleCurrentStep();
+    });
   }
 
   // change value form element
@@ -149,6 +181,14 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+//   function cloneElement(elements, classTarget) {
+//     elements.forEach(function (element) {
+//       const elementClone = element.cloneNode(true);
+//       elementClone.classList.add("invisible");
+//       document.querySelector(`.${classTarget}`).appendChild(elementClone);
+//     });
+//   }
 
   function resetfocus(e) {
     formLabels.forEach(function (el) {
