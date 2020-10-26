@@ -9,7 +9,7 @@ const RECEIVE_MORE_USER = "receive-more-user";
 const ADVICE_WITH_PROJECT_FORM = "advice-with-project-form";
 const RECEIVE_MORE_FORM = "receive-more-form";
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", function() {
   let classNameFormActive = null;
   let errors = {};
 
@@ -17,7 +17,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const requiredText = wrapper.dataset.requireText;
   const emailInvalid = wrapper.dataset.emailInvalid;
 
-  const formLabels = document.querySelectorAll(".form-input");
+  const formLabels = array(document.querySelectorAll(".form-input"));
   let type = document.querySelector(".select-type:checked").value;
   let hasProject = document.querySelector(".advice-confirm input:checked")
     .value;
@@ -29,7 +29,7 @@ window.addEventListener("DOMContentLoaded", () => {
       document.body.classList.add("ie-browser");
     }
 
-    Array.from(document.forms).forEach(function (form) {
+    array(document.forms).forEach(function (form) {
       handleSubmit(form);
     });
 
@@ -41,8 +41,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
   function handleNavigation() {
     //select advice or receive more
-    document.querySelectorAll(".select-type").forEach(function (element) {
-      element.addEventListener("input", function (event) {
+    array(document.querySelectorAll(".select-type")).forEach(function (element) {
+      element.addEventListener("change", function (event) {
         if (event.target.checked) {
           type = event.target.value;
           document.querySelector(".type .next").dataset.next = type;
@@ -51,51 +51,37 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     //select has project or has no project
-    document
-      .querySelectorAll(".advice-confirm input")
+    array(document
+      .querySelectorAll(".advice-confirm input"))
       .forEach(function (element) {
-        element.addEventListener("input", function (event) {
+        element.addEventListener("change", function (event) {
           if (event.target.checked) {
             hasProject = event.target.value;
             document.querySelector(
-              ".advice-confirm  .next"
+              ".advice-confirm .next"
             ).dataset.next = hasProject;
           }
         });
       });
 
     //handle click next
-    document.querySelectorAll(".next").forEach(function (element) {
+    array(document.querySelectorAll(".next")).forEach(function (element) {
       element.addEventListener("click", function (event) {
         const nextClass = event.target.dataset.next;
         document.querySelector(".active").classList.remove("active");
-        document.querySelector(`.${nextClass}`).classList.add("active");
-
-        // can clone this if submit form don't take data from prev form
-        // if (nextClass === ADVICE_WITH_PROJECT_USER) {
-        //   cloneElement(
-        //     document.querySelectorAll(`.${PROJECT} .element`),
-        //     ADVICE_WITH_PROJECT_FORM
-        //   );
-        // }
-        // if (nextClass === RECEIVE_MORE_USER) {
-        //   cloneElement(
-        //     document.querySelectorAll(`.${RECEIVE_MORE_INTERESTS} .element`),
-        //     RECEIVE_MORE_FORM
-        //   );
-        // }
+        document.querySelector("." + nextClass).classList.add("active");
       });
     });
 
     //handle click back
-    document.querySelectorAll(".back").forEach(function (element) {
+    array(document.querySelectorAll(".back")).forEach(function (element) {
       element.addEventListener("click", function (event) {
         const backClass = event.target.dataset.back;
         if (!backClass) {
           return;
         }
         document.querySelector(".active").classList.remove("active");
-        document.querySelector(`.${backClass}`).classList.add("active");
+        document.querySelector("." + backClass).classList.add("active");
 
         //clear error final form
         if (
@@ -103,16 +89,14 @@ window.addEventListener("DOMContentLoaded", () => {
           backClass === ADVICE_CONFIRM ||
           backClass === RECEIVE_MORE_INTERESTS
         ) {
-          document.querySelectorAll(".error").forEach(function (element) {
+          array(document.querySelectorAll(".error")).forEach(function (element) {
             if (element.tagName === "SPAN") {
-              element.remove();
+              element.parentNode.removeChild(element);
             } else {
               element.classList.remove("error");
             }
           });
-        //   document.querySelectorAll(".invisible").forEach(function (element) {
-        //     element.remove();
-        //   });
+
           classNameFormActive = null;
           errors = {};
         }
@@ -122,27 +106,43 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // change value form element
   function handleChange() {
-    const formElements = document.querySelectorAll(
+    const formElements = array(document.querySelectorAll(
       '.form-input__required:not([type="hidden"])'
-    );
+    ));
+    const selectElements = array(document.querySelectorAll(
+      'select.form-input__required:not([type="hidden"])'
+    ));
+
+    selectElements.forEach(function (element) {
+        element.addEventListener("change", function (e) {
+          validateAfterSubmitFailed(e)
+        });
+    });
+
     formElements.forEach(function (element) {
       element.addEventListener("input", function (e) {
-        if (element.closest("form").className === classNameFormActive) {
-          if (element.classList.contains("form-input__email")) {
-            validateEmail(e.target);
-          } else if (element.classList.contains("form-input__checkbox")) {
-            validateCheckbox(e.target);
-          } else {
-            validateInput(e.target);
-          }
-        }
+        validateAfterSubmitFailed(e)
       });
     });
+
+    function validateAfterSubmitFailed(e) {
+      const element = e.target;
+      const matchWithCurrentForm = document.querySelector('.' + classNameFormActive + ' #' + element.getAttribute('id'));
+      if (matchWithCurrentForm) {
+        if (element.classList.contains("form-input__email")) {
+          validateEmail(element);
+        } else if (element.classList.contains("form-input__checkbox")) {
+          validateCheckbox(element);
+        } else {
+          validateInput(element);
+        }
+      }
+    }
   }
 
   // change phone value
   function handleChangeInputNumber() {
-    document.querySelectorAll(".form-input__numeric").forEach(function (el) {
+    array(document.querySelectorAll(".form-input__numeric")).forEach(function (el) {
       el.addEventListener("keypress", numeric);
     });
   }
@@ -168,9 +168,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
   //validate current form
   function validate(form) {
-    const formElements = form.querySelectorAll(
+    const formElements = array(form.querySelectorAll(
       '.form-input__required:not([type="hidden"])'
-    );
+    ));
+
     formElements.forEach(function (element) {
       if (element.classList.contains("form-input__email")) {
         validateEmail(element);
@@ -181,14 +182,6 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-
-//   function cloneElement(elements, classTarget) {
-//     elements.forEach(function (element) {
-//       const elementClone = element.cloneNode(true);
-//       elementClone.classList.add("invisible");
-//       document.querySelector(`.${classTarget}`).appendChild(elementClone);
-//     });
-//   }
 
   function resetfocus(e) {
     formLabels.forEach(function (el) {
@@ -237,16 +230,16 @@ window.addEventListener("DOMContentLoaded", () => {
       email(element.value) &&
       formGroupEmailLastChild.classList.contains("error")
     ) {
-      formGroupEmailLastChild.remove();
+      emailParent.removeChild(formGroupEmailLastChild);
       delete errors["email"];
     }
   }
 
   function validateInput(element) {
     const parentNode = element.parentNode;
-    const lastChildInFormGroup = parentNode.lastElementChild;
+    const errorElement = parentNode.querySelector('.error');
     const name = element.getAttribute("name");
-    if (!element.value && !lastChildInFormGroup.classList.contains("error")) {
+    if (!element.value && !errorElement) {
       const errorNodeRequired = document.createElement("span");
       const textNodeRequired = document.createTextNode(requiredText);
       errorNodeRequired.appendChild(textNodeRequired);
@@ -255,9 +248,9 @@ window.addEventListener("DOMContentLoaded", () => {
       errors[name] = requiredText;
     } else if (
       element.value &&
-      lastChildInFormGroup.classList.contains("error")
+      errorElement
     ) {
-      lastChildInFormGroup.remove();
+      parentNode.removeChild(errorElement);
       delete errors[name];
     }
   }
@@ -316,4 +309,8 @@ function detectIE() {
   }
 
   return false;
+}
+
+function array(element) {
+  return Array.prototype.slice.call(element);
 }

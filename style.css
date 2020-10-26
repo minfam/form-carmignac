@@ -95,7 +95,8 @@ table {
 }
 
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   margin: 0;
   padding: 0;
   border: 0;
@@ -173,8 +174,11 @@ main {
 }
 
 .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   margin-left: -10px;
   margin-right: -10px;
 }
@@ -187,7 +191,7 @@ main {
   width: 100%;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
   .column-6 {
     width: 50%;
   }
@@ -197,7 +201,7 @@ main {
   width: 100%;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
   .column-4 {
     width: 33.33%;
   }
@@ -221,6 +225,8 @@ header p a::after {
   content: "";
   height: 1px;
   margin: auto;
+  -webkit-transition: width 0.4s ease;
+  -o-transition: width 0.4s ease;
   transition: width 0.4s ease;
   width: 0;
 }
@@ -317,7 +323,8 @@ header p a:hover::after {
 .type .btn button:first-child {
   pointer-events: none;
   opacity: 0.6;
-  animation: disabled 1s;
+  -webkit-animation: disabled 1s;
+          animation: disabled 1s;
 }
 
 .title {
@@ -461,6 +468,8 @@ form .form-group__checkbox .tickbox {
   left: 0;
   border: 1px solid #525151;
   height: 16px;
+  -webkit-transition:background 0.4s ease;
+  -o-transition:background 0.4s ease;
   transition:background 0.4s ease;
   width: 16px;
   border-radius: 2px;
@@ -482,7 +491,9 @@ form .form-group:not(.form-group__checkbox) label {
   line-height: 23px;
   pointer-events: none;
   color: #979797;
-  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
   transition: all 0.4s ease;
   -webkit-transition: all 0.4s ease;
   -moz-transition: all 0.4s ease;
@@ -495,7 +506,9 @@ form .form-group:not(.form-group__checkbox) label {
 form .form-group.is-focus label {
   font-size: 12px;
   top: -18px;
-  transform: none;
+  -webkit-transform: none;
+      -ms-transform: none;
+          transform: none;
 }
 
 form .form .has-error label {
@@ -525,6 +538,8 @@ form textarea {
   font-size: 14px;
   height: 30px;
   outline: none;
+  -webkit-transition: border 0.4s ease;
+  -o-transition: border 0.4s ease;
   transition: border 0.4s ease;
   width: 100%;
 }
@@ -559,13 +574,16 @@ form textarea {
   margin-left: 22px;
   margin-top: -16px;
   width: calc(100% - 22px);
-  animation: ltr 1s;
+  -webkit-animation: ltr 1s;
+          animation: ltr 1s;
 }
 
 .btn {
   background: #84bd00;
   margin-top: 20px;
   height: 45px;
+  -webkit-transition: background 0.4s ease, opacity 0.7s ease;
+  -o-transition: background 0.4s ease, opacity 0.7s ease;
   transition: background 0.4s ease, opacity 0.7s ease;
   width: 100%;
   position: relative;
@@ -587,7 +605,8 @@ form textarea {
   position: absolute;
   top: 0;
   left: 40px;
-  animation: ltr 1s;
+  -webkit-animation: ltr 1s;
+          animation: ltr 1s;
 }
 
 .btn button::before {
@@ -600,6 +619,8 @@ form textarea {
   background-color: #fff;
   opacity: 0;
   width: 0;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -623,8 +644,17 @@ form textarea {
 .checkmark-check {
   stroke-dasharray: 48;
   stroke-dashoffset: 48;
-  transform-origin: 50% 50%;
+  -webkit-transform-origin: 50% 50%;
+      -ms-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
 }
+
+.ie-browser .checkmark {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+}
+
 .ie-browser .checkmark-check {
   stroke-dasharray: 0;
   stroke-dashoffset: 0;
@@ -648,22 +678,26 @@ form textarea {
 
 @keyframes label {
   from {
-    transform: translate(-40px, -50%);
+    -webkit-transform: translate(-40px, -50%);
+            transform: translate(-40px, -50%);
     opacity: 0;
   }
   to {
-    transform: translate(0, -50%);
+    -webkit-transform: translate(0, -50%);
+            transform: translate(0, -50%);
     opacity: 1;
   }
 }
 
 @-webkit-keyframes label {
   from {
-    transform: translate(-40px, -50%);
+    -webkit-transform: translate(-40px, -50%);
+            transform: translate(-40px, -50%);
     opacity: 0;
   }
   to {
-    transform: translate(0, -50%);
+    -webkit-transform: translate(0, -50%);
+            transform: translate(0, -50%);
     opacity: 1;
   }
 }
@@ -689,22 +723,26 @@ form textarea {
 
 @keyframes ltr {
   from {
-    transform: translateX(-40px);
+    -webkit-transform: translateX(-40px);
+            transform: translateX(-40px);
     opacity: 0;
   }
   to {
-    transform: translateX(0);
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
     opacity: 1;
   }
 }
 
 @-webkit-keyframes ltr {
   from {
-    transform: translateX(-40px);
+    -webkit-transform: translateX(-40px);
+            transform: translateX(-40px);
     opacity: 0;
   }
   to {
-    transform: translateX(0);
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
     opacity: 1;
   }
 }
@@ -724,41 +762,49 @@ form textarea {
 @-webkit-keyframes scale {
   0%,
   100% {
-    transform: none;
+    -webkit-transform: none;
+            transform: none;
   }
   50% {
-    transform: scale3d(1.2, 1.2, 1);
+    -webkit-transform: scale3d(1.2, 1.2, 1);
+            transform: scale3d(1.2, 1.2, 1);
   }
 }
 
 @keyframes scale {
   0%,
   100% {
-    transform: none;
+    -webkit-transform: none;
+            transform: none;
   }
   50% {
-    transform: scale3d(1.2, 1.2, 1);
+    -webkit-transform: scale3d(1.2, 1.2, 1);
+            transform: scale3d(1.2, 1.2, 1);
   }
 }
 
 @keyframes disabled {
   from {
     opacity: 0;
-    transform: translateX(-40px);
+    -webkit-transform: translateX(-40px);
+            transform: translateX(-40px);
   } 
   to {
     opacity: 0.6;
-    transform: translateX(0);
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
   }
 }
 
 @-webkit-keyframes disabled {
   from {
     opacity: 0;
-    transform: translateX(-40px);
+    -webkit-transform: translateX(-40px);
+            transform: translateX(-40px);
   } 
   to {
     opacity: 0.6;
-    transform: translateX(0);
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
   }
 }
